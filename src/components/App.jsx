@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import Section from './Section';
+import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
+import Statistics from './Statistics';
+import Notification from './Notification';
 export default class App extends Component {
   state = {
     good: 0,
@@ -6,7 +10,6 @@ export default class App extends Component {
     bad: 0,
   };
   addFeedback = grade => {
-    console.log(grade);
     this.setState(prevState => ({
       [grade]: prevState[grade] + 1,
     }));
@@ -26,48 +29,24 @@ export default class App extends Component {
     const grade = Object.keys(this.state);
     return (
       <>
-        <div>
-          <h2>Please leave feedback</h2>
-          <div>
-            <button
-              type="button"
-              key={grade[0]}
-              onClick={() => this.addFeedback(grade[0])}
-            >
-              good
-            </button>
-            <button
-              type="button"
-              key={grade[1]}
-              onClick={() => this.addFeedback(grade[1])}
-            >
-              neutral
-            </button>
-            <button
-              type="button"
-              key={grade[2]}
-              onClick={() => this.addFeedback(grade[2])}
-            >
-              bad
-            </button>
-          </div>
-        </div>
+        <Section title="Please leave feedback">
+          <FeedbackOptions options={grade} onLeaveFeedback={this.addFeedback} />
+        </Section>
+
         {this.countTotalFeedback() > 0 ? (
           <div>
-            <h2>Statistics</h2>
-            <div>
-              <p>good:{this.state.good}</p>
-              <p>neutral:{this.state.neutral}</p>
-              <p>bad:{this.state.bad}</p>
-              <p>total:{this.countTotalFeedback()}</p>
-              <p>
-                {' '}
-                positiveFeedback: {this.countPositiveFeedbackPercentage()}%
-              </p>
-            </div>
+            <Section title="Statistics">
+              <Statistics
+                good={this.state.good}
+                neutral={this.state.neutral}
+                bad={this.state.bad}
+                total={this.countTotalFeedback()}
+                positivePercentage={this.countPositiveFeedbackPercentage()}
+              />
+            </Section>
           </div>
         ) : (
-          <p>There is no feedback </p>
+          <Notification message="There is no feedback" />
         )}
       </>
     );
