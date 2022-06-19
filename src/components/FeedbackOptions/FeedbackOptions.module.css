@@ -1,0 +1,6 @@
+.button {
+  margin-right: 10px;
+}
+.button:active {
+  background-color: rgb(9, 196, 243);
+}

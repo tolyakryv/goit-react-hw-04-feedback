@@ -1,8 +1,9 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import s from './Section.module.css';
 const Section = ({ title, children }) => {
   return (
-    <div>
+    <div className={s.container}>
       <h2>{title}</h2>
       <div>{children}</div>
     </div>

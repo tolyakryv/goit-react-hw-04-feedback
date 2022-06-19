@@ -32,22 +32,19 @@ export default class App extends Component {
         <Section title="Please leave feedback">
           <FeedbackOptions options={grade} onLeaveFeedback={this.addFeedback} />
         </Section>
-
-        {this.countTotalFeedback() > 0 ? (
-          <div>
-            <Section title="Statistics">
-              <Statistics
-                good={this.state.good}
-                neutral={this.state.neutral}
-                bad={this.state.bad}
-                total={this.countTotalFeedback()}
-                positivePercentage={this.countPositiveFeedbackPercentage()}
-              />
-            </Section>
-          </div>
-        ) : (
-          <Notification message="There is no feedback" />
-        )}
+        <Section title="Statistics">
+          {this.countTotalFeedback() > 0 ? (
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={this.countTotalFeedback()}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          ) : (
+            <Notification message="There is no feedback" />
+          )}
+        </Section>
       </>
     );
   }
